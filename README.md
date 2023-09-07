@@ -13,7 +13,7 @@ Welcome to ProjectPlayground, a repository dedicated to my side projects, coding
 
 Here's a list of some of the exciting projects you'll find in this repository:
 
-1.  [Expense Tracker](./tree/main/expense_tracker/): Expense Tracker is a web application that helps you keep track of your income and expenses with ease.
+1.  [Expense Tracker](https://github.com/anas029/ProjectPlayground/tree/main/expense_tracker): Expense Tracker is a web application that helps you keep track of your income and expenses with ease.
 
 Each project directory contains its own README with more details, installation instructions, and usage guidelines.
 
