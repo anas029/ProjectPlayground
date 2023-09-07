@@ -1,18 +1,24 @@
 import { useState } from "react"
 import { ITransactionProps, useAddTransaction } from "../../hooks/useAddTransaction"
 import { useGetTransactions } from "../../hooks/useGetTransactions"
+import { useGetUserInfo } from "../../hooks/useGetUserInfo"
+import { signOut } from "firebase/auth"
+import { auth } from "../../configs/firebase.config"
+import { useNavigate } from "react-router-dom"
 
 
 export default function ExpenseTracker() {
     const addTransaction = useAddTransaction()
-    const {transactions} = useGetTransactions()
+    const {transactions, result} = useGetTransactions()
     const [data,setData]=useState<ITransactionProps>({description:'',amount:0,type:'expense'})
+    const {name, profilePhoto} = useGetUserInfo()
+    const navigate = useNavigate()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         try {
         await addTransaction(data)
-            setData(prev=>({...prev,description:'',amount:''}))
+            setData(prev=>({...prev,description:'',amount:0}))
         } catch (error) {
             console.log(error);
             
@@ -23,21 +29,34 @@ export default function ExpenseTracker() {
         const {name,value} = e.target
         setData(prev=>({...prev,[name]:value}))
     }
+    
+
+    const signUserOut= async()=>{
+        try {
+            await signOut(auth)
+            localStorage.removeItem("auth")
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+            
+        }
+        
+    }
 
     return (
         <div>
-            <h1>ExpenseTracker</h1>
+            <h1>{name}'s ExpenseTracker</h1>
             <div>
                 <h3>Your balance</h3>
-                <p>$0.00</p>
+                <p>{result.balance<0?'-':''}${result.balance *-1}</p>
             </div>
             <div>
                 <h4>Expense</h4>
-                <p>$0.00</p>
+                <p>${result.expense}</p>
             </div>
             <div>
                 <h4>Income</h4>
-                <p>$0.00</p>
+                <p>${result.income}</p>
             </div>
 
             <form onSubmit={onSubmit} >
@@ -58,6 +77,14 @@ export default function ExpenseTracker() {
                     <button type="submit">Add</button>
                 </div>
             </form>
+            {profilePhoto && 
+            <div>
+                <img src={profilePhoto} alt="Profile photo" />
+                <div><button type="button"
+                onClick={signUserOut}
+                >Sign out</button></div>
+            </div>
+            }
             <hr />
 
             <div>

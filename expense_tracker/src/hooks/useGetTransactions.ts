@@ -1,11 +1,11 @@
 import { collection, onSnapshot, orderBy, query, serverTimestamp, where, FieldValue  } from 'firebase/firestore'
-
+import {total} from '../configs/totalBalance'
 import { useState, useEffect } from 'react'
 import { db } from '../configs/firebase.config'
 import { useGetUserInfo } from './useGetUserInfo'
 
 
-interface Transaction {
+export interface Transaction {
     id: string;
     description: string;
     amount: string;
@@ -14,7 +14,7 @@ interface Transaction {
     userID:string
   }
   
-  interface UseGetTransactions {
+interface UseGetTransactions {
     transactions: Transaction[];
   }
 
@@ -76,7 +76,7 @@ export const useGetTransactions = () => {
       }
     }
   }, [userID]) // Only re-run the effect when userID changes
-
-  return { transactions }
+  const result = total(transactions)
+  return { transactions ,result}
 }
 
