@@ -26,7 +26,7 @@ To get started with Expense Tracker, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/anas029/expense-tracker.git
+git clone -b expense_tracker https://github.com/anas029/ProjectPlayground.git
 ```
 
 2. Navigate to the project directory:
