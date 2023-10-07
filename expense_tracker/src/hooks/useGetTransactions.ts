@@ -14,9 +14,6 @@ export interface Transaction {
     userID:string
   }
   
-interface UseGetTransactions {
-    transactions: Transaction[];
-  }
 
 export const useGetTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([])

@@ -6,6 +6,7 @@ function App() {
 
   return (
     <>
+    <h1>Home Page</h1>
     <Router>
       <Routes>
         <Route path='/' element={<Auth/>}/>

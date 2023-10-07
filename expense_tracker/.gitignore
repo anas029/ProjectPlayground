@@ -11,10 +11,14 @@ node_modules
 dist
 dist-ssr
 *.local
+.env.local
+.firebase*
+../.github/
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+.vite/
 .idea
 .DS_Store
 *.suo
